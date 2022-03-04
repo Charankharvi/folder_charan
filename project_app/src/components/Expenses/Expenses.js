@@ -12,16 +12,16 @@ const Expenses = (props) => {
   const [onChangeInputData,setOnchangeInputData]=useState("")
   
   const filterChangeHandler = (selectedYear) => {
+    setOnchangeInputData('');
     setFilteredYear(selectedYear);
-    // setOnchangeInputData(selectedYear);
    
   };
 
   
   const onChangeInputValuehandler = (enteredYear) => {
+    setFilteredYear('');
     setOnchangeInputData(enteredYear);
 
-    // setFilteredYear();
 };
 
 
@@ -30,10 +30,9 @@ const filteredExpenses = props.items.filter((expense) => {
 
 
 
+  return expense.date.getFullYear().toString() === filteredYear;
 
   
-   
-  return expense.date.getFullYear().toString() === filteredYear;
   
 });
 
@@ -54,6 +53,7 @@ const filteredExpenses = props.items.filter((expense) => {
     
   });
 
+  if(inputExpenses===onChangeInputData){}
 
 
   return (
@@ -93,43 +93,50 @@ filteredExpenses.map((expense)=>(
 
 
 
-{
-        filteredYear ==="All" ?
-         props.items.map((expense)=>(
-        <ExpenseItem
-        key={expense.id}
-        title={expense.title}
-        amount={expense.amount}
-        date={expense.date}
-          />
-          )) :
+    
+     
         
-          // filteredExpenses.length===0?
-          //   <p style={{color: "white"}}>NO ExpensesItems Found</p>:
-        
-        filteredExpenses.map((expense)=>(
+      
+
+
+         {
+           onChangeInputData =='' ? 
+           
+            inputExpenses.map((expense)=>(
+            <ExpenseItem
+           key={expense.id}
+           title={expense.title}
+           amount={expense.amount}
+          date={expense.date}
+           />
+            ))   
+           
+           :
+
+           filteredYear ==="All" ?
+           props.items.map((expense)=>(
           <ExpenseItem
           key={expense.id}
           title={expense.title}
           amount={expense.amount}
           date={expense.date}
-       
-          />
-          )) 
-        }
-
-
-{/* 
-     {inputExpenses.map((expense)=>(
-  <ExpenseItem
-  key={expense.id}
-  title={expense.title}
-  amount={expense.amount}
-  date={expense.date}
-  />
-  )) }  */}
-
+            />
+            )) 
          
+         : 
+          filteredExpenses.map((expense)=>(
+            <ExpenseItem
+            key={expense.id}
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+         
+            />
+            ))
+
+
+
+         }
 
  
 
